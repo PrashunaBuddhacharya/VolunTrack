@@ -1,0 +1,70 @@
+:root {
+  --dark-navy: #000957;
+  --blue: #344CB7;
+  --light-blue: #577BC1;
+  --yellow: #FFEB00;
+}
+
+body {
+  margin: 0;
+  font-family: 'Inter', sans-serif;
+  background-color: var(--light-blue);
+  color: var(--dark-navy);
+}
+
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('https://images.unsplash.com/photo-1521737711867-e3b97375f902?auto=format&fit=crop&w=1950&q=80') no-repeat center/cover;
+}
+
+.login-box {
+  background: white;
+  padding: 40px;
+  border-radius: 12px;
+  max-width: 400px;
+  width: 100%;
+  box-shadow: 0 5px 20px rgba(0,0,0,0.3);
+}
+
+.login-box h2 {
+  text-align: center;
+  margin-bottom: 30px;
+  color: var(--blue);
+}
+
+.login-box input {
+  width: 100%;
+  padding: 12px;
+  margin-bottom: 20px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+}
+
+.login-box button {
+  background-color: var(--blue);
+  color: white;
+  padding: 12px;
+  width: 100%;
+  border: none;
+  border-radius: 8px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.login-box button:hover {
+  background-color: var(--dark-navy);
+}
+
+.login-box .register-link {
+  text-align: center;
+  margin-top: 15px;
+}
+
+.login-box .register-link a {
+  color: var(--blue);
+  text-decoration: none;
+}

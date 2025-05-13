@@ -1,0 +1,78 @@
+@charset "UTF-8";
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background-color: #f0f0f0;
+}
+
+.navbar {
+    background-color: #367fa9;
+    color: white;
+    padding: 10px 20px;
+    text-align: center;
+}
+
+.sidebar {
+    background-color: #3c8dbc;
+    width: 200px;
+    height: 100vh;
+    position: fixed;
+    top: 0;
+    left: 0;
+    padding-top: 20px;
+}
+
+.sidebar ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+.sidebar ul li {
+    margin: 15px 0;
+}
+
+.sidebar ul li a {
+    color: white;
+    text-decoration: none;
+    font-size: 18px;
+    display: block;
+    padding: 10px 20px;
+}
+
+.sidebar ul li a:hover {
+    background-color: #00c0ef;
+}
+
+.content {
+    margin-left: 220px;
+    padding: 20px;
+}
+
+.content h3 {
+    color: #367fa9;
+}
+
+.dashboard-cards {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+    margin-top: 20px;
+}
+
+.card {
+    background-color: #ffffff;
+    border-left: 5px solid #367fa9;
+    padding: 15px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+}
+
+.card h4 {
+    margin: 0 0 10px 0;
+    color: #3c8dbc;
+}
+
+.card p {
+    font-size: 18px;
+    color: #367fa9;
+}

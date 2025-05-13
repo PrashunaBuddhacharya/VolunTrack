@@ -1,4 +1,4 @@
-package com.voluntrack.controller;
+package com.voluntrack.controller.admin;
 
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -8,16 +8,16 @@ import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 /**
- * Servlet implementation class OpportunitiesController
+ * Servlet implementation class AboutController
  */
-@WebServlet(asyncSupported = true, urlPatterns = { "/opportunities" })
-public class OpportunitiesController extends HttpServlet {
+@WebServlet(asyncSupported = true, urlPatterns = { "/dashboard" })
+public class DashboardController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-        
+       
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public OpportunitiesController() {
+    public DashboardController() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -27,7 +27,7 @@ public class OpportunitiesController extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		request.getRequestDispatcher("WEB-INF/pages/opportunities.jsp").forward(request, response);	
+		request.getRequestDispatcher("WEB-INF/pages/admin/dashboard.jsp").forward(request, response);	
 	}
 
 	/**

@@ -3,36 +3,27 @@ package com.voluntrack.model;
 import java.sql.Timestamp;
 
 public class UserModel {
-
     private int id;
     private String fullName;
     private String username;
     private String email;
     private String phone;
-    private String location; // Can be enhanced to LocationModel if joined
+    private String location;
     private int age;
     private String gender;
     private String interestArea;
     private String password;
     private Timestamp registrationDate;
 
-    // ======= Constructors =======
-
+    // Default constructor
     public UserModel() {
-        // Default
     }
 
-    // Login purpose
-    public UserModel(String email, String password) {
-        this.email = email;
-        this.password = password;
-    }
-
-    // Full constructor with ID (e.g., when fetching from DB)
-    public UserModel(int id, String fullName, String email, String phone, String location,
-                     int age, String gender, String interestArea, String password, Timestamp registrationDate) {
-        this.id = id;
+    // Full constructor without ID (For registration)
+    public UserModel(String fullName, String username, String email, String phone, String location, int age,
+                     String gender, String interestArea, String password, Timestamp registrationDate) {
         this.fullName = fullName;
+        this.username = username;
         this.email = email;
         this.phone = phone;
         this.location = location;
@@ -43,30 +34,7 @@ public class UserModel {
         this.registrationDate = registrationDate;
     }
 
-    // Constructor without ID (e.g., during registration)
-    public UserModel(String fullName, String email, String phone, String location,
-                     int age, String gender, String interestArea, String password, Timestamp registrationDate) {
-        this.fullName = fullName;
-        this.email = email;
-        this.phone = phone;
-        this.location = location;
-        this.age = age;
-        this.gender = gender;
-        this.interestArea = interestArea;
-        this.password = password;
-        this.registrationDate = registrationDate;
-    }
-
-    // Constructor for limited view (e.g., profile list)
-    public UserModel(int id, String fullName, String email, String phone) {
-        this.id = id;
-        this.fullName = fullName;
-        this.email = email;
-        this.phone = phone;
-    }
-
-    // ======= Getters & Setters =======
-
+    // Getters and Setters
     public int getId() {
         return id;
     }
@@ -81,6 +49,14 @@ public class UserModel {
 
     public void setFullName(String fullName) {
         this.fullName = fullName;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
     }
 
     public String getEmail() {
@@ -131,7 +107,7 @@ public class UserModel {
         this.interestArea = interestArea;
     }
 
-    public String getPassword() {
+    public static String getPassword() {
         return password;
     }
 
@@ -146,12 +122,4 @@ public class UserModel {
     public void setRegistrationDate(Timestamp registrationDate) {
         this.registrationDate = registrationDate;
     }
-
-	public String getUsername() {
-		return username;
-	}
-
-	public void setUsername(String username) {
-		this.username = username;
-	}
 }

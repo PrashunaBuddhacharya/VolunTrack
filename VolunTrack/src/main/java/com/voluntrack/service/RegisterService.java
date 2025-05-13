@@ -39,7 +39,7 @@ public class RegisterService {
             return null;
         }
 
-        String insertQuery = "INSERT INTO users (full_name, email, phone, location, age, gender, interest_area, password, registration_date) "
+        String insertQuery = "INSERT INTO user (full_name, email, phone, location, age, gender, interest_area, password, registration_date) "
                            + "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
         try (PreparedStatement insertStmt = dbConn.prepareStatement(insertQuery)) {
@@ -61,4 +61,9 @@ public class RegisterService {
             return null;
         }
     }
+
+	public boolean isUsernameDuplicate(String username) {
+		// TODO Auto-generated method stub
+		return false;
+	}
 }

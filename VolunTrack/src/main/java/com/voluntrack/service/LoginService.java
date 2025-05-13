@@ -1,77 +1,57 @@
-package com.voluntrack.service;
+""package com.voluntrack.service;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-import com.voluntrack.config.DbConfig;
 import com.voluntrack.model.UserModel;
+import com.voluntrack.config.DbConfig;
 import com.voluntrack.util.PasswordUtil;
 
-/**
- * Service class for handling login operations.
- * Connects to the database, verifies user credentials, and returns login status.
- */
 public class LoginService {
 
-    private Connection dbConn;
-    private boolean isConnectionError = false;
-
     /**
-     * Constructor initializes the database connection.
-     * Sets the connection error flag if the connection fails.
-     */
-    public LoginService() {
-        try {
-            dbConn = DbConfig.getDbConnection();
-        } catch (SQLException | ClassNotFoundException ex) {
-            ex.printStackTrace();
-            isConnectionError = true;
-        }
-    }
-
-    /**
-     * Validates the user credentials against the database records.
+     * Authenticates a user based on full name and password.
      *
-     * @param userModel the UserModel object containing user credentials
-     * @return true if credentials are valid, false if invalid, null if connection error
+     * @param userModel UserModel containing login credentials
+     * @return true if login is successful, false otherwise; null if error
      */
-    public Boolean loginUser(UserModel userModel) {
-        if (isConnectionError) {
-            System.out.println("Connection Error!");
-            return null;
-        }
+    public Boolean loginUser(UserModel userModel) throws ClassNotFoundException {
+        String sql = "SELECT full_name, password FROM users WHERE full_name = ?";
 
-        String query = "SELECT email, password FROM users WHERE email = ?";
-        try (PreparedStatement stmt = dbConn.prepareStatement(query)) {
-            stmt.setString(1, userModel.getEmail());
-            ResultSet result = stmt.executeQuery();
+        try (Connection conn = DbConfig.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
 
-            if (result.next()) {
-                return validatePassword(result, userModel);
+            stmt.setString(1, userModel.getFullName());
+
+            try (ResultSet rs = stmt.executeQuery()) {
+                if (rs.next()) {
+                    String dbFullName = rs.getString("full_name");
+                    String dbPassword = rs.getString("password");
+
+                    // Decrypt the password
+                    String decryptedPassword = PasswordUtil.decrypt(dbPassword, dbFullName);
+
+                    System.out.println("DB Full Name: " + dbFullName);
+                    System.out.println("Input Full Name: " + userModel.getFullName());
+                    System.out.println("DB Password (decrypted): " + decryptedPassword);
+                    System.out.println("Input Password: " + userModel.getPassword());
+
+                    return dbFullName.equals(userModel.getFullName()) &&
+                           decryptedPassword != null &&
+                           decryptedPassword.equals(userModel.getPassword());
+                } else {
+                    System.out.println("User not found: " + userModel.getFullName());
+                    return false;
+                }
             }
+
         } catch (SQLException e) {
+            System.err.println("SQL Error: " + e.getMessage());
             e.printStackTrace();
             return null;
         }
-
-        return false;
-    }
-
-    /**
-     * Validates the password retrieved from the database.
-     *
-     * @param result     the ResultSet containing the email and password
-     * @param userModel  the UserModel object containing user credentials
-     * @return true if the passwords match, false otherwise
-     * @throws SQLException if a database access error occurs
-     */
-    private boolean validatePassword(ResultSet result, UserModel userModel) throws SQLException {
-        String dbEmail = result.getString("email");
-        String dbPassword = result.getString("password");
-
-        return dbEmail.equals(userModel.getEmail())
-                && PasswordUtil.encrypt(dbPassword, dbEmail).equals(userModel.getPassword());
     }
 }
+""

@@ -18,54 +18,57 @@ public class ValidationUtil {
 
     private static final Pattern USERNAME_PATTERN = Pattern.compile("^[A-Za-z][A-Za-z0-9]*$");
 
-    /**
-     * Check if a string is null or empty.
-     */
+    
+     // Check if a string is null or empty.
+     
     public static boolean isNullOrEmpty(String str) {
         return str == null || str.trim().isEmpty();
     }
 
-    /**
-     * Validate email format.
-     */
+    
+     //Validate email format.
+     
     public static boolean isValidEmail(String email) {
         return email != null && EMAIL_PATTERN.matcher(email).matches();
     }
 
-    /**
-     * Validate Nepali phone number (starts with 98 and has 10 digits).
-     */
+    
+     // Validate Nepali phone number (starts with 98 and has 10 digits).
+     
     public static boolean isValidPhoneNumber(String phone) {
         return phone != null && PHONE_PATTERN.matcher(phone).matches();
     }
 
-    /**
-     * Validate password (at least 8 characters, 1 uppercase, 1 number, 1 symbol).
-     */
+    
+     // Validate password (at least 8 characters, 1 uppercase, 1 number, 1 symbol).
+     
     public static boolean isValidPassword(String password) {
         return password != null && PASSWORD_PATTERN.matcher(password).matches();
     }
 
-    /**
-     * Check if two passwords match.
-     */
+    
+     //check if two passwords match.
+     
     public static boolean doPasswordMatch(String password, String confirmPassword) {
         return password != null && password.equals(confirmPassword);
     }
 
-    /**
-     * Username must start with a letter and contain only letters and numbers.
-     */
+   //Username must start with a letter and contain only letters and numbers.
+     
     public static boolean isAlphaNumericStartingWithLetters(String username) {
         return username != null && USERNAME_PATTERN.matcher(username).matches();
     }
 
-    /**
-     * Ensure age is at least 16 based on LocalDate of birth.
-     */
+    // Ensure age is at least 16 based on LocalDate of birth.
+     
     public static boolean isAgeAtLeast16(LocalDate birthDate) {
         if (birthDate == null) return false;
         LocalDate now = LocalDate.now();
         return Period.between(birthDate, now).getYears() >= 16;
     }
+
+	public static boolean doPasswordsMatch(String parameter, String parameter2) {
+		// TODO Auto-generated method stub
+		return false;
+	}
 }

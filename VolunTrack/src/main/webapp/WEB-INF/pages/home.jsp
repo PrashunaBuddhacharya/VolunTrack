@@ -13,12 +13,12 @@
     <header class="navbar">
         <div class="logo">Voluntrack 🌍</div>
         <ul class="nav-links">
-                <li><a href="${pageContext.request.contextPath}/home">Home</a></li>
-				<li><a href="${pageContext.request.contextPath}/opportunities">Opportunities</a></li>
-				<li><a href="${pageContext.request.contextPath}/about">About Us</a></li>   
-                <li><a href="${pageContext.request.contextPath}/login">Login</a></li>
-				<li><a href="${pageContext.request.contextPath}/register">Register</a></li>   
-        </ul>
+              
+   <li><a href="${pageContext.request.contextPath}/home">Home</a></li>
+            <li><a href="${pageContext.request.contextPath}/opportunities">Opportunities</a></li>
+            <li><a href="${pageContext.request.contextPath}/about">About Us</a></li>
+            <li><a href="${pageContext.request.contextPath}/login">Login</a></li>
+            <li><a href="${pageContext.request.contextPath}/register">Register</a></li>      </ul>
     </header>
 
     <section class="hero">
@@ -26,8 +26,8 @@
             <h1>Travel differently, connect globally</h1>
             <p>Explore exciting volunteer programs across 100+ countries</p>
             <div class="hero-buttons">
-                <a href="${pageContext.request.contextPath}/opportunities">🌍 Discover Opportunities</a>
-                <a href="${pageContext.request.contextPath}/register">📝 Join Us</a>
+                <a href="${pageContext.request.contextPath}/opportunities">Discover Opportunities</a>
+                <a href="${pageContext.request.contextPath}/register">Join Us</a>
             </div>
         </div>
     </section>

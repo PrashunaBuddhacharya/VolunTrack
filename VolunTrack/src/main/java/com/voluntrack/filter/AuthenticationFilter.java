@@ -12,7 +12,6 @@ import jakarta.servlet.http.HttpServletResponse;
 
 import java.io.IOException;
 
-// Update this to your actual util class location
 import com.voluntrack.util.SessionUtil;
 
 @WebFilter(asyncSupported = true, urlPatterns = "/*")
@@ -20,14 +19,16 @@ public class AuthenticationFilter implements Filter {
 
     private static final String LOGIN_PAGE = "/login";
     private static final String REGISTER_PAGE = "/register";
-    private static final String HOME_PAGE = "/home";
+    private static final String HOME_PAGE = "/index"; // Changed from /home to /index
     private static final String OPPORTUNITIES_PAGE = "/opportunities";
     private static final String ABOUT_PAGE = "/about";
+    private static final String PROFILE_PAGE = "/profile";
+    private static final String CONTACT_PAGE = "/contact";
     private static final String ROOT_PAGE = "/";
     
     // Add or remove according to your public paths
     private static final String[] PUBLIC_PAGES = {
-        LOGIN_PAGE, REGISTER_PAGE, HOME_PAGE,OPPORTUNITIES_PAGE, ABOUT_PAGE, ROOT_PAGE
+        LOGIN_PAGE, REGISTER_PAGE, HOME_PAGE, OPPORTUNITIES_PAGE, ABOUT_PAGE, PROFILE_PAGE,CONTACT_PAGE, ROOT_PAGE
     };
     
     // Pages requiring authentication (modify as needed)
@@ -57,7 +58,7 @@ public class AuthenticationFilter implements Filter {
         boolean isStaticResource = isStaticFile(path);
         boolean isProtected = isProtectedPage(path);
 
-        if (isStaticResource || isPublic) {
+        if (isStaticResource || isPublic || isProtected) {
             chain.doFilter(request, response);
             return;
         }
@@ -69,7 +70,7 @@ public class AuthenticationFilter implements Filter {
 
         // Prevent logged-in users from accessing login/register again
         if (isLoggedIn && (path.equals(LOGIN_PAGE) || path.equals(REGISTER_PAGE))) {
-            res.sendRedirect(contextPath + HOME_PAGE);
+            res.sendRedirect(contextPath + HOME_PAGE); // This now redirects to /index
             return;
         }
 
@@ -103,11 +104,11 @@ public class AuthenticationFilter implements Filter {
         // Optional cleanup logic
     }
 
-	public static String getOpportunitiesPage() {
-		return OPPORTUNITIES_PAGE;
-	}
+    public static String getOpportunitiesPage() {
+        return OPPORTUNITIES_PAGE;
+    }
 
-	public static String getAboutPage() {
-		return ABOUT_PAGE;
-	}
+    public static String getAboutPage() {
+        return ABOUT_PAGE;
+    }
 }

@@ -19,7 +19,13 @@ public class UserModel {
     public UserModel() {
     }
 
-    // Full constructor without ID (For registration)
+    // Constructor for login (used in login controller)
+    public UserModel(String fullName, String password) {
+        this.fullName = fullName;
+        this.password = password;
+    }
+
+    // Full constructor without ID (for registration)
     public UserModel(String fullName, String username, String email, String phone, String location, int age,
                      String gender, String interestArea, String password, Timestamp registrationDate) {
         this.fullName = fullName;
@@ -107,7 +113,7 @@ public class UserModel {
         this.interestArea = interestArea;
     }
 
-    public static String getPassword() {
+    public String getPassword() {
         return password;
     }
 

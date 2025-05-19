@@ -27,8 +27,6 @@ public class DbConfig {
         return DriverManager.getConnection(URL, USERNAME, PASSWORD);
     }
 
-	public static Connection getConnection() {
-		// TODO Auto-generated method stub
-		return null;
+
 	}
-}
+

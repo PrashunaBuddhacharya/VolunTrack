@@ -7,13 +7,6 @@
   <title>Volunteer Registration</title>
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
   <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/registration.css" />
-  <script>
-    function handleSubmit(event) {
-      event.preventDefault(); // Prevent default form submission
-      // Optionally, add client-side validation here
-      window.location.href = "login.jsp"; // Redirect to login page
-    }
-  </script>
 </head>
 <body>
   <div class="container">
@@ -31,7 +24,7 @@
         <h1>Create Your Account</h1>
       </div>
 
-      <!-- Add server message if available -->
+      <!-- Display server messages -->
       <%
         String success = (String) request.getAttribute("successMessage");
         String error = (String) request.getAttribute("errorMessage");
@@ -43,61 +36,61 @@
         <div class="error-message"><%= error %></div>
       <% } %>
 
-      <!-- Updated form with username -->
+      <!-- Form with repopulation -->
       <form action="register" method="post">
         <div class="form-group">
           <label for="fullName">Full Name</label>
-          <input type="text" id="fullName" name="fullName" placeholder="Enter your full name" required>
+          <input type="text" id="fullName" name="fullName" placeholder="Enter your full name" value="<%= request.getAttribute("fullName") != null ? request.getAttribute("fullName") : "" %>" required>
         </div>
 
         <div class="form-group">
           <label for="username">Username</label>
-          <input type="text" id="username" name="username" placeholder="Choose a username" required>
+          <input type="text" id="username" name="username" placeholder="Choose a username" value="<%= request.getAttribute("username") != null ? request.getAttribute("username") : "" %>" required>
         </div>
 
         <div class="form-group">
           <label for="email">Email Address</label>
-          <input type="email" id="email" name="email" placeholder="Enter your email address" required>
+          <input type="email" id="email" name="email" placeholder="Enter your email address" value="<%= request.getAttribute("email") != null ? request.getAttribute("email") : "" %>" required>
         </div>
 
         <div class="form-group">
           <label for="phone">Phone Number</label>
-          <input type="tel" id="phone" name="phone" placeholder="Enter your phone number">
+          <input type="tel" id="phone" name="phone" placeholder="Enter your phone number" value="<%= request.getAttribute("phone") != null ? request.getAttribute("phone") : "" %>">
         </div>
 
         <div class="form-group">
           <label for="location">Location</label>
-          <input type="text" id="location" name="location" placeholder="Enter your city and state">
+          <input type="text" id="location" name="location" placeholder="Enter your city and state" value="<%= request.getAttribute("location") != null ? request.getAttribute("location") : "" %>">
         </div>
 
         <div class="form-group">
           <label for="age">Age</label>
-          <input type="number" id="age" name="age" placeholder="Enter your age" min="16" max="120">
+          <input type="number" id="age" name="age" placeholder="Enter your age" min="16" max="120" value="<%= request.getAttribute("age") != null ? request.getAttribute("age") : "" %>">
         </div>
 
         <div class="form-group">
           <label for="gender">Gender</label>
           <select id="gender" name="gender">
-            <option value="" disabled selected>Select Gender</option>
-            <option value="male">Male</option>
-            <option value="female">Female</option>
-            <option value="nonbinary">Non-binary</option>
-            <option value="other">Other</option>
-            <option value="prefer-not">Prefer not to say</option>
+            <option value="" disabled <%= request.getAttribute("gender") == null ? "selected" : "" %>>Select Gender</option>
+            <option value="male" <%= "male".equals(request.getAttribute("gender")) ? "selected" : "" %>>Male</option>
+            <option value="female" <%= "female".equals(request.getAttribute("gender")) ? "selected" : "" %>>Female</option>
+            <option value="nonbinary" <%= "nonbinary".equals(request.getAttribute("gender")) ? "selected" : "" %>>Non-binary</option>
+            <option value="other" <%= "other".equals(request.getAttribute("gender")) ? "selected" : "" %>>Other</option>
+            <option value="prefer-not" <%= "prefer-not".equals(request.getAttribute("gender")) ? "selected" : "" %>>Prefer not to say</option>
           </select>
         </div>
 
         <div class="form-group">
           <label for="interest">Area of Interest</label>
           <select id="interest" name="interest">
-            <option value="" disabled selected>Select an area of interest</option>
-            <option value="education">Education</option>
-            <option value="health">Healthcare</option>
-            <option value="environment">Environment</option>
-            <option value="animal">Animal Welfare</option>
-            <option value="community">Community Service</option>
-            <option value="disaster">Disaster Relief</option>
-            <option value="arts">Arts & Culture</option>
+            <option value="" disabled <%= request.getAttribute("interest") == null ? "selected" : "" %>>Select an area of interest</option>
+            <option value="education" <%= "education".equals(request.getAttribute("interest")) ? "selected" : "" %>>Education</option>
+            <option value="health" <%= "health".equals(request.getAttribute("interest")) ? "selected" : "" %>>Healthcare</option>
+            <option value="environment" <%= "environment".equals(request.getAttribute("interest")) ? "selected" : "" %>>Environment</option>
+            <option value="animal" <%= "animal".equals(request.getAttribute("interest")) ? "selected" : "" %>>Animal Welfare</option>
+            <option value="community" <%= "community".equals(request.getAttribute("interest")) ? "selected" : "" %>>Community Service</option>
+            <option value="disaster" <%= "disaster".equals(request.getAttribute("interest")) ? "selected" : "" %>>Disaster Relief</option>
+            <option value="arts" <%= "arts".equals(request.getAttribute("interest")) ? "selected" : "" %>>Arts & Culture</option>
           </select>
         </div>
 

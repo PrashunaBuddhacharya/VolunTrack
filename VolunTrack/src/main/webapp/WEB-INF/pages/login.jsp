@@ -40,7 +40,7 @@
                 </div>
                 <button type="submit" class="login-button">Login</button>
                 <div class="register-link">
-                    Don’t have an account? <a href="${contextPath}/registration.jsp">Register here</a>
+                    Don’t have an account? <a href="${contextPath}/register">Register here</a>
                 </div>
             </form>
         </div>

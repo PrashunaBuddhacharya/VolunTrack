@@ -1,57 +1,60 @@
-""package com.voluntrack.service;
+package com.voluntrack.service;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-import com.voluntrack.model.UserModel;
 import com.voluntrack.config.DbConfig;
+import com.voluntrack.model.UserModel;
 import com.voluntrack.util.PasswordUtil;
 
 public class LoginService {
 
+    private static final String SELECT_USER_SQL =
+        "SELECT full_name, password FROM user WHERE full_name = ?";
+
     /**
-     * Authenticates a user based on full name and password.
-     *
-     * @param userModel UserModel containing login credentials
-     * @return true if login is successful, false otherwise; null if error
+     * @param userModel contains fullName + password
+     * @return TRUE if login succeeds, FALSE if bad credentials,
+     *         null if any database error or missing connection
      */
-    public Boolean loginUser(UserModel userModel) throws ClassNotFoundException {
-        String sql = "SELECT full_name, password FROM users WHERE full_name = ?";
+    public Boolean loginUser(UserModel userModel) {
+        if (userModel == null
+         || userModel.getFullName() == null
+         || userModel.getPassword() == null) {
+            return false;
+        }
 
-        try (Connection conn = DbConfig.getConnection();
-             PreparedStatement stmt = conn.prepareStatement(sql)) {
+        Connection conn = null;
+        try {
+            conn = DbConfig.getDbConnection();
+            if (conn == null) {
+                System.err.println("LoginService: DbConfig.getConnection() returned null");
+                return null;
+            }
 
-            stmt.setString(1, userModel.getFullName());
-
-            try (ResultSet rs = stmt.executeQuery()) {
-                if (rs.next()) {
-                    String dbFullName = rs.getString("full_name");
-                    String dbPassword = rs.getString("password");
-
-                    // Decrypt the password
-                    String decryptedPassword = PasswordUtil.decrypt(dbPassword, dbFullName);
-
-                    System.out.println("DB Full Name: " + dbFullName);
-                    System.out.println("Input Full Name: " + userModel.getFullName());
-                    System.out.println("DB Password (decrypted): " + decryptedPassword);
-                    System.out.println("Input Password: " + userModel.getPassword());
-
-                    return dbFullName.equals(userModel.getFullName()) &&
-                           decryptedPassword != null &&
-                           decryptedPassword.equals(userModel.getPassword());
-                } else {
-                    System.out.println("User not found: " + userModel.getFullName());
-                    return false;
+            try (PreparedStatement stmt = conn.prepareStatement(SELECT_USER_SQL)) {
+                stmt.setString(1, userModel.getFullName());
+                try (ResultSet rs = stmt.executeQuery()) {
+                    if (!rs.next()) {
+                        return false;  // no such user
+                    }
+                    String dbEncrypted = rs.getString("password");
+                    String dbPassword  = PasswordUtil.decrypt(dbEncrypted, rs.getString("full_name"));
+                    return dbPassword != null && dbPassword.equals(userModel.getPassword());
                 }
             }
 
-        } catch (SQLException e) {
-            System.err.println("SQL Error: " + e.getMessage());
-            e.printStackTrace();
+        } catch (SQLException | ClassNotFoundException e) {
+            System.err.println("LoginService: SQL error during login: " + e.getMessage());
             return null;
+        } finally {
+            // clean up if DbConfig doesn't close the connection internally
+            if (conn != null) {
+                try { conn.close(); }
+                catch (SQLException ignore) { }
+            }
         }
     }
 }
-""

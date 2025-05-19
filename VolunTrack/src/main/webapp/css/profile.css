@@ -1,1 +1,117 @@
 @charset "UTF-8";
+body {
+    font-family: 'Poppins', sans-serif;
+    background-color: #e0f7fa; /* Light blue background */
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+}
+
+.container {
+    max-width: 800px; /* Increased max-width for larger screens */
+    padding: 30px;
+    background-color: #fff;
+    border-radius: 12px; /* Slightly more rounded corners */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* Slightly stronger shadow */
+    text-align: center;
+}
+
+.profile-header {
+    margin-bottom: 30px;
+}
+
+.profile-header svg {
+    width: 48px; /* Larger icon */
+    height: 48px;
+    color: #007bff; /* Blue color for the icon */
+    margin-bottom: 15px;
+}
+
+.profile-header h1 {
+    font-size: 2.2rem; /* Increased font size */
+    color: #2c3e50;
+    font-weight: 600; /* Use a heavier font weight */
+    margin-bottom: 0;
+}
+
+.profile-card {
+    display: flex;
+    flex-direction: row; /* Use row layout for side-by-side arrangement */
+    background-color: #f9f9f9; /* Slightly darker background for the card */
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.08); /* Subtle shadow for the card */
+    align-items: center; /* Vertically center image and info */
+    text-align: left; /* Align text to the left within the info section */
+}
+
+
+.profile-image {
+    margin-right: 30px; /* Increased margin between image and info */
+}
+
+.profile-image img {
+    width: 150px; /* Increased image size */
+    height: 150px;
+    border-radius: 50%;
+    object-fit: cover; /* Ensure image fills the circle */
+    border: 3px solid #007bff; /* Add a border */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Add a small shadow */
+}
+
+.profile-info {
+    flex: 1; /* Allow info section to take up remaining space */
+}
+
+
+.profile-info .info-group {
+    margin-bottom: 20px;
+    display: flex; /* Use flexbox for label and value alignment */
+    flex-direction: row;
+    align-items: baseline; /* Align items to the baseline of the text */
+    gap: 10px; /* Add some gap between label and value */
+}
+
+.profile-info .label {
+    font-weight: 600;
+    color: #555; /* Darker label color */
+    width: 100px; /* Fixed width for labels */
+    text-align: left; /* Align labels to the left */
+}
+
+.profile-info .value {
+    color: #333; /* Darker value color */
+    font-size: 1.1rem; /* Increased font size for values */
+    line-height: 1.6; /* Improved line height for better readability */
+}
+
+/* Responsive adjustments for smaller screens */
+@media (max-width: 768px) {
+    .container {
+        padding: 20px;
+    }
+    .profile-card {
+        flex-direction: column; /* Stack image and info vertically on small screens */
+        text-align: center; /* Center text on small screens */
+    }
+    .profile-image {
+        margin-right: 0;
+        margin-bottom: 20px;
+    }
+    .profile-info .label{
+        width: auto;
+        text-align: left;
+    }
+}
+
+@media (max-width: 480px) {
+    .profile-header h1 {
+        font-size: 1.8rem; /* Smaller heading on very small screens */
+    }
+    .profile-info .value {
+        font-size: 1rem; /* Smaller value text on very small screens */
+    }
+}

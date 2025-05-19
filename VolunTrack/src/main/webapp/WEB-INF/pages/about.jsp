@@ -16,10 +16,10 @@
             <span class="image-fallback" style="display: none;">Logo not available</span>
         </div>
         <ul class="nav-links">
-            <li><a href="#">Home</a></li>
-            <li><a href="#">Opportunities</a></li>
-            <li><a href="#">Resources</a></li>
-            <li><a href="#" class="cta-button">Get Involved</a></li>
+            <li><a href="${pageContext.request.contextPath}/index">Home Page</a></li>
+            <li><a href="${pageContext.request.contextPath}/opportunities">Oppotunities</a></li>
+            <li><a href="${pageContext.request.contextPath}/contact">Contact Us</a></li>
+            <li><a href="${pageContext.request.contextPath}/register">Register</a></li>      </ul>
         </ul>
     </nav>
 
